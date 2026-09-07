@@ -47,4 +47,11 @@ df = pd.DataFrame(rows)
 df.to_csv("data/bc_datasets.csv", index=False)
 top_orgs=df["Organization"].value_counts().head(10)
 top_orgs.plot(kind="bar")
-plt.show()
+##plt.show()
+
+df["Created"]=pd.to_datetime(df["Created"])
+df["Modified"]=pd.to_datetime(df["Modified"])
+modified_by_year=df["Modified"].dt.year.value_counts().sort_index()
+modified_2022=df[df["Modified"].dt.year==2022]
+modified_by_year.plot(kind="bar")
+print(modified_2022["Organization"].value_counts().head(10))
